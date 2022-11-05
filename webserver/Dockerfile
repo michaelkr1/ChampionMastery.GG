@@ -14,7 +14,6 @@ WORKDIR /cmgg
 #ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.1
 COPY --from=build cmgg/js/ js/
 COPY package.json ./
-COPY package-lock.json ./
 # Install only runtime dependencies.
 RUN npm install --only=prod
 COPY views/ views/
