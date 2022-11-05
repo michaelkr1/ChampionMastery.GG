@@ -2,7 +2,6 @@ FROM node:gallium AS build
 WORKDIR /cmgg
 COPY tsconfig.json ./
 COPY package.json ./
-COPY package-lock.json ./
 # Install all dependencies for compilation.
 RUN npm install
 COPY ts/ ts/
