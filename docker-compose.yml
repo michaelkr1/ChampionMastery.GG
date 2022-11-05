@@ -32,7 +32,7 @@ services:
       context: "./highscores-service"
     environment:
       MYSQL_CONNECTION_URL: "jdbc:${MYSQL_CONNECTION_URL}"
-      RIOT_API_KEY:
+      RIOT_API_KEY: "RGAPI-f4337775-3d41-41f2-a7d8-14d2863e1c56"
     networks:
       mysql:
       prometheus:
