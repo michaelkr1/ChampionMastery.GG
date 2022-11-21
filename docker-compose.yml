@@ -4,6 +4,7 @@ x-anchors:
   traefik_cert_resolver: &traefik_cert_resolver "${TRAEFIK_CERT_RESOLVER:-}"
 services:
   webserver:
+    privileged: true
     build:
       context: ./webserver
     volumes:
@@ -27,6 +28,7 @@ services:
       highscoresService:
     restart: unless-stopped
   highscores_service:
+    privileged: true
     build:
       context: "./highscores-service"
     environment:
@@ -65,6 +67,7 @@ services:
       prometheus:
     restart: unless-stopped
   prometheus:
+    privileged: true
     build:
       context: "./prometheus"
     command: "--storage.tsdb.path=/prometheus/prometheus_data --config.file=/etc/prometheus/prometheus.yml"
@@ -87,6 +90,7 @@ services:
     user: "root"
     restart: unless-stopped
   cadvisor:
+    privileged: true
     image: "gcr.io/cadvisor/cadvisor:latest"
     volumes:
       - "/:/rootfs:ro"
@@ -98,11 +102,13 @@ services:
       prometheus:
     restart: unless-stopped
   node_exporter:
+    privileged: true
     image: "prom/node-exporter:latest"
     networks:
       prometheus:
     restart: unless-stopped
   grafana:
+    privileged: true
     build:
       context: "./grafana"
     labels:
@@ -120,6 +126,7 @@ services:
       prometheus:
     restart: unless-stopped
   admin_ui:
+    privileged: true
     build:
       context: "./admin_ui"
     labels:
@@ -135,6 +142,7 @@ services:
       traefik:
     restart: unless-stopped
   mysql:
+    privileged: true
     build:
       context: "./mysql/"
       args:
@@ -152,6 +160,7 @@ services:
     cap_add:
       - SYS_NICE
   prom_mysql_exporter:
+    privileged: true
     image: "prom/mysqld-exporter:v0.11.0"
     environment:
       DATA_SOURCE_NAME: "root:${MYSQL_ROOT_PASSWORD}@(mysql)/"
@@ -159,6 +168,7 @@ services:
       prometheus:
     restart: unless-stopped
   sematext_logs:
+    privileged: true
     build:
       context: "./sematext_logs"
     volumes:
