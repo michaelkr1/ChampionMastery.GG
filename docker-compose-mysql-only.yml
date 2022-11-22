@@ -1,0 +1,23 @@
+version: "3.6"
+services:
+  mysql:
+    privileged: true
+    build:
+      context: "./mysql/"
+      args:
+        MYSQL_ROOT_PASSWORD:
+    ports:
+      - "3306:3306"
+    volumes:
+      - "mysqlData:/mysql_data"
+    environment:
+      MYSQL_ROOT_PASSWORD:
+    networks:
+      mysql:
+    restart: unless-stopped
+    cap_add:
+      - SYS_NICE
+volumes:
+  mysqlData:
+networks:
+  mysql:
